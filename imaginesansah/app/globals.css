@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Shared shadcn-primitive tokens, scoped per theme so Button/Card/Input/etc.
+     render correctly in whichever surface they're mounted in. Values are HSL
+     triplets (no hsl() wrapper) because tailwind wraps them as hsl(var(--x)). */
+  .theme-public {
+    --background: 45 33% 94%;      /* public-ivory #F5F1E8 */
+    --foreground: 0 0% 7%;         /* public-black #111111 */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 7%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 7%;
+    --primary: 0 0% 7%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 45 20% 88%;
+    --secondary-foreground: 0 0% 7%;
+    --muted: 45 20% 88%;
+    --muted-foreground: 0 0% 40%;
+    --border: 0 0% 7% / 0.12;
+    --input: 0 0% 7% / 0.16;
+    --ring: 262 83% 58%;           /* public-violet #7C3AED */
+  }
+
+  .theme-admin {
+    --background: 200 27% 4%;      /* admin-bg #070A0D */
+    --foreground: 200 20% 96%;     /* admin-text #F5F7F9 */
+    --card: 200 20% 9%;            /* admin-panel #111820 */
+    --card-foreground: 200 20% 96%;
+    --popover: 200 20% 9%;
+    --popover-foreground: 200 20% 96%;
+    --primary: 152 100% 62%;       /* admin-green #39FF88 */
+    --primary-foreground: 200 27% 4%;
+    --secondary: 200 22% 7%;       /* admin-secondary #0D1117 */
+    --secondary-foreground: 200 20% 96%;
+    --muted: 200 22% 7%;
+    --muted-foreground: 212 8% 58%; /* admin-muted #8B949E */
+    --border: 200 22% 15%;         /* admin-border #1E2A32 */
+    --input: 200 22% 15%;
+    --ring: 258 90% 66%;           /* admin-violet #8B5CF6 */
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Visible focus states everywhere — public and admin */
+  :focus-visible {
+    outline: 2px solid #7C3AED;
+    outline-offset: 3px;
+  }
+}
+
+@layer utilities {
+  .admin-scope :focus-visible {
+    outline-color: #39FF88;
+  }
+}

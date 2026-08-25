@@ -2,6 +2,7 @@ import { SiteHeader } from "@/components/public/site-header";
 import { SiteFooter } from "@/components/public/site-footer";
 import { FloatingWhatsAppButton } from "@/components/public/floating-whatsapp-button";
 import { getSiteSettings, getSiteContent } from "@/lib/queries/public";
+import { ThemeScopeProvider } from "@/lib/theme-scope";
 
 export default async function PublicLayout({ children }: { children: React.ReactNode }) {
   const [settings, content] = await Promise.all([
@@ -10,7 +11,7 @@ export default async function PublicLayout({ children }: { children: React.React
   ]);
 
   return (
-    <div className="theme-public bg-public-ivory font-body text-public-black">
+    <ThemeScopeProvider className="theme-public bg-public-ivory font-body text-public-black">
       <SiteHeader siteName={settings.site_name} />
       <main>{children}</main>
       <SiteFooter settings={settings} tagline={content["footer.tagline"]} />
@@ -18,6 +19,6 @@ export default async function PublicLayout({ children }: { children: React.React
         whatsappNumber={settings.whatsapp_number}
         greeting={settings.whatsapp_default_greeting}
       />
-    </div>
+    </ThemeScopeProvider>
   );
 }

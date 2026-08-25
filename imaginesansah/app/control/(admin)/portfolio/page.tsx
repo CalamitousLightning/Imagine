@@ -1,26 +1,31 @@
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { getAllProjectsForAdmin } from "@/lib/queries/admin";
+import { getCategories } from "@/lib/queries/public";
 import { ProjectCardAdmin } from "@/components/admin/project-card-admin";
+import { CategoryManagerDialog } from "@/components/admin/category-manager-dialog";
 import { Button } from "@/components/ui/button";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminPortfolioPage() {
-  const projects = await getAllProjectsForAdmin();
+  const [projects, categories] = await Promise.all([getAllProjectsForAdmin(), getCategories()]);
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-admin-muted">Portfolio</p>
           <h1 className="mt-1 font-display text-2xl font-medium text-admin-text">Manage Projects</h1>
         </div>
-        <Link href="/control/portfolio/new">
-          <Button className="bg-admin-green text-admin-bg hover:bg-admin-green/90">
-            <Plus className="mr-1.5 h-4 w-4" /> New Project
-          </Button>
-        </Link>
+        <div className="flex items-center gap-2">
+          <CategoryManagerDialog categories={categories} />
+          <Link href="/control/portfolio/new">
+            <Button className="bg-admin-green text-admin-bg hover:bg-admin-green/90">
+              <Plus className="mr-1.5 h-4 w-4" /> New Project
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {projects.length === 0 ? (

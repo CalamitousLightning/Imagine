@@ -1,12 +1,11 @@
 import Link from "next/link";
-import Image from "next/image";
 import { HeroShowcase } from "@/components/public/hero-showcase";
+import { ProjectCard } from "@/components/public/project-card";
 import {
   getEnabledHeroSlides,
   getFeaturedProjects,
   getPublishedServices,
   getSiteContent,
-  mediaUrl,
 } from "@/lib/queries/public";
 
 export default async function HomePage() {
@@ -14,7 +13,7 @@ export default async function HomePage() {
     getEnabledHeroSlides(),
     getFeaturedProjects(4),
     getPublishedServices(),
-    getSiteContent(["intro.philosophy", "intro.difference"]),
+    getSiteContent(["intro.philosophy", "intro.difference", "cta.closing_headline"]),
   ]);
 
   return (
@@ -22,18 +21,27 @@ export default async function HomePage() {
       <HeroShowcase slides={slides} />
 
       {/* INTRODUCTION */}
-      <section className="mx-auto max-w-5xl px-6 py-28 lg:px-10">
-        <p className="font-body text-xs uppercase tracking-[0.2em] text-public-violet">
-          Who I Am
-        </p>
-        <h2 className="mt-4 max-w-3xl font-display text-3xl font-medium leading-[1.15] text-public-black lg:text-5xl">
-          {content["intro.philosophy"] ||
-            "A Ghanaian graphic designer building visual identities that people actually remember."}
-        </h2>
-        <p className="mt-6 max-w-xl font-body text-public-black/70">
-          {content["intro.difference"] ||
-            "Every brief starts with a question: what does this brand look like when it's confident in itself? The answer is never a template."}
-        </p>
+      <section className="relative overflow-hidden px-6 py-28 lg:px-10">
+        {/* Contained radial glow — a restrained nod to a more contemporary
+            product feel, without turning the editorial layout into a SaaS page. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full opacity-[0.15] blur-3xl"
+          style={{ background: "radial-gradient(circle, #7C3AED, transparent 70%)" }}
+        />
+        <div className="relative mx-auto max-w-5xl">
+          <p className="font-body text-xs uppercase tracking-[0.2em] text-public-violet">
+            Who I Am
+          </p>
+          <h2 className="mt-4 max-w-3xl font-display text-3xl font-medium leading-[1.15] text-public-black lg:text-5xl">
+            {content["intro.philosophy"] ||
+              "A Ghanaian graphic designer building visual identities that people actually remember."}
+          </h2>
+          <p className="mt-6 max-w-xl font-body text-public-black/70">
+            {content["intro.difference"] ||
+              "Every brief starts with a question: what does this brand look like when it's confident in itself? The answer is never a template."}
+          </p>
+        </div>
       </section>
 
       {/* FEATURED WORK */}
@@ -44,42 +52,15 @@ export default async function HomePage() {
               <h2 className="font-display text-3xl font-medium text-public-black lg:text-4xl">
                 Featured Work
               </h2>
-              <Link href="/portfolio" className="font-body text-sm text-public-black/60 hover:text-public-violet">
+              <Link href="/portfolio" className="font-body text-sm text-public-black/60 transition-colors hover:text-public-violet">
                 View all →
               </Link>
             </div>
 
             <div className="grid gap-8 md:grid-cols-2">
-              {featured.map((project) => {
-                const cover = mediaUrl(project.cover);
-                return (
-                  <Link
-                    key={project.id}
-                    href={`/portfolio/${project.slug}`}
-                    className="group block"
-                  >
-                    <div className="relative aspect-[4/3] overflow-hidden bg-public-ivory">
-                      {cover && (
-                        <Image
-                          src={cover}
-                          alt={project.title}
-                          fill
-                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                        />
-                      )}
-                    </div>
-                    <div className="mt-4 flex items-baseline justify-between">
-                      <h3 className="font-display text-xl text-public-black">{project.title}</h3>
-                      {project.category && (
-                        <span className="font-body text-xs uppercase tracking-wide text-public-black/50">
-                          {project.category.name}
-                        </span>
-                      )}
-                    </div>
-                  </Link>
-                );
-              })}
+              {featured.map((project) => (
+                <ProjectCard key={project.id} project={project} />
+              ))}
             </div>
           </div>
         </section>
@@ -97,7 +78,7 @@ export default async function HomePage() {
                 <Link
                   key={service.id}
                   href={`/start-a-project?service=${service.slug}`}
-                  className="group rounded-sm border border-public-black/10 p-8 transition-colors hover:border-public-violet"
+                  className="group rounded-lg border border-public-black/10 bg-public-white p-8 shadow-[0_2px_16px_rgba(17,17,17,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-public-violet/40 hover:shadow-[0_16px_36px_rgba(124,58,237,0.14)]"
                 >
                   <h3 className="font-display text-lg text-public-black">{service.title}</h3>
                   {service.description && (
@@ -114,16 +95,23 @@ export default async function HomePage() {
       )}
 
       {/* CLOSING CTA */}
-      <section className="bg-public-black py-28 text-center">
-        <h2 className="mx-auto max-w-2xl px-6 font-display text-3xl font-medium text-public-white lg:text-5xl">
-          {content["cta.closing_headline"] || "Have an idea worth designing?"}
-        </h2>
-        <Link
-          href="/start-a-project"
-          className="mt-8 inline-block rounded-full bg-public-coral px-8 py-3 font-body text-sm font-medium text-public-black transition-transform hover:scale-105 motion-reduce:transition-none"
-        >
-          Start a Project
-        </Link>
+      <section className="relative overflow-hidden bg-public-black py-28 text-center">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-0 h-72 w-[42rem] -translate-x-1/2 opacity-30 blur-3xl"
+          style={{ background: "radial-gradient(circle, #FF5A36, transparent 70%)" }}
+        />
+        <div className="relative">
+          <h2 className="mx-auto max-w-2xl px-6 font-display text-3xl font-medium text-public-white lg:text-5xl">
+            {content["cta.closing_headline"] || "Have an idea worth designing?"}
+          </h2>
+          <Link
+            href="/start-a-project"
+            className="mt-8 inline-block rounded-full bg-public-coral px-8 py-3 font-body text-sm font-medium text-public-black shadow-[0_10px_30px_rgba(255,90,54,0.4)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_38px_rgba(255,90,54,0.55)] motion-reduce:transition-none"
+          >
+            Start a Project
+          </Link>
+        </div>
       </section>
     </>
   );

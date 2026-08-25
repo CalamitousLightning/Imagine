@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MobileNav } from "@/components/public/mobile-nav";
 
 const NAV = [
   { href: "/portfolio", label: "Portfolio" },
@@ -9,7 +10,7 @@ const NAV = [
 
 export function SiteHeader({ siteName }: { siteName: string }) {
   return (
-    <header className="sticky top-0 z-40 border-b border-public-black/10 bg-public-ivory/90 backdrop-blur-sm">
+    <header className="sticky top-0 z-40 border-b border-public-black/10 bg-public-ivory/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
         <Link
           href="/"
@@ -23,29 +24,22 @@ export function SiteHeader({ siteName }: { siteName: string }) {
             <Link
               key={item.href}
               href={item.href}
-              className="font-body text-sm tracking-wide text-public-black/70 transition-colors hover:text-public-black"
+              className="group relative font-body text-sm tracking-wide text-public-black/70 transition-colors hover:text-public-black"
             >
               {item.label}
+              <span className="absolute -bottom-1 left-0 h-px w-0 bg-public-violet transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
         </nav>
 
         <Link
           href="/start-a-project"
-          className="hidden rounded-full bg-public-black px-5 py-2.5 font-body text-sm font-medium text-public-white transition-colors hover:bg-public-violet md:inline-block"
+          className="hidden rounded-full bg-public-black px-5 py-2.5 font-body text-sm font-medium text-public-white shadow-[0_6px_20px_rgba(17,17,17,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-public-violet hover:shadow-[0_10px_28px_rgba(124,58,237,0.4)] md:inline-block"
         >
           Start a Project
         </Link>
 
-        {/* Mobile nav trigger — wired to a drawer component in a follow-up pass */}
-        <button
-          className="rounded-full border border-public-black/20 p-2 md:hidden"
-          aria-label="Open menu"
-        >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-        </button>
+        <MobileNav />
       </div>
     </header>
   );

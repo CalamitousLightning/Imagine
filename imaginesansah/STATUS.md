@@ -46,7 +46,34 @@ Build-tested with `next build` — full route tree compiles clean.
 
 ## Not started / worth a follow-up pass
 
-- Drag-and-drop reordering (currently up/down buttons for gallery images)
+- Drag-and-drop reordering (currently up/down buttons for gallery images and categories)
 - Rich text for descriptions (currently plain text)
 - Email notifications on new client requests (currently admin must check the dashboard)
 - Final line-by-line QA against the brief's 43-item acceptance test
+
+## Fixed this session
+
+- **Netlify "Powered by Netlify" badge**: this is a real, brand-new Netlify
+  feature (rolled out Aug 19, 2026) — new *public* projects on the *Free*
+  plan get it by default. Turn it off per-project at **Project configuration
+  → General → Powered by Netlify badge** in the Netlify dashboard. No code
+  change needed; takes effect on the next request, no redeploy required.
+- **Broken Select/Dialog styling** (the category dropdown, service editor,
+  hero slide editor): Radix portals these to `document.body` by default,
+  which sits outside the `.theme-public`/`.theme-admin` wrapper divs that
+  define this app's CSS variables — and there was no bare `:root` fallback,
+  so portaled content had literally undefined colors. Fixed via
+  `lib/theme-scope.tsx`, which portals into the correct themed ancestor
+  instead. This affected the public site too (the "Project Type" dropdown
+  on Start a Project), not just admin.
+- **Dead mobile nav button**: the public header's hamburger button did
+  nothing. Now opens a real slide-in menu (`components/public/mobile-nav.tsx`).
+- **Category management**: previously only possible via raw SQL. Added
+  full CRUD (add/rename/reorder/delete) via a dialog on `/control/portfolio`.
+- **Modern visual pass** on public pages per request: colored glow-shadows
+  on primary CTAs, card lift-on-hover with real box-shadow, contained radial
+  gradient accents on the homepage intro and closing CTA, active-state glow
+  on category filter pills. Kept deliberately restrained — full glassmorphism
+  or heavy gradients would conflict with the brief's "editorial, not generic
+  SaaS" direction, so this reads as a sharper, more contemporary version of
+  the existing design rather than a different one.

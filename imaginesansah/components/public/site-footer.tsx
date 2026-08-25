@@ -6,7 +6,7 @@ export function SiteFooter({ settings, tagline }: { settings: SiteSettings; tagl
   const socials = Object.entries(settings.social_links || {});
 
   return (
-    <footer className="border-t border-public-black/10 bg-public-black text-public-white">
+    <footer className="relative border-t border-public-black/10 bg-public-black text-public-white">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
         <div className="grid gap-12 md:grid-cols-3">
           <div>
@@ -39,9 +39,22 @@ export function SiteFooter({ settings, tagline }: { settings: SiteSettings; tagl
           </div>
         </div>
 
-        <p className="mt-16 font-body text-xs text-public-white/40">
-          © {year} {settings.site_name}. All rights reserved.
-        </p>
+        <div className="mt-16 space-y-1">
+          <p className="font-body text-xs text-public-white/40">
+            © {year} {settings.site_name}. All rights reserved.
+          </p>
+          <p className="font-body text-xs text-public-white/40">By Evoxera Technology</p>
+        </div>
+      </div>
+
+      {/* Quiet mark of origin — three Ghana-flag hues, low-opacity, unlabeled. */}
+      <div
+        className="pointer-events-none absolute bottom-0 left-0 flex h-[3px] w-10 opacity-40"
+        aria-hidden="true"
+      >
+        <span className="h-full flex-1" style={{ backgroundColor: "#CE1126" }} />
+        <span className="h-full flex-1" style={{ backgroundColor: "#FCD116" }} />
+        <span className="h-full flex-1" style={{ backgroundColor: "#006B3F" }} />
       </div>
     </footer>
   );

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MobileNav } from "@/components/public/mobile-nav";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const NAV = [
   { href: "/portfolio", label: "Portfolio" },
@@ -38,6 +39,10 @@ export function SiteHeader({ siteName }: { siteName: string }) {
         >
           Start a Project
         </Link>
+
+        <div className="hidden items-center md:flex">
+          <ThemeToggle surface="public" className="ml-3" />
+        </div>
 
         <MobileNav />
       </div>

@@ -72,7 +72,7 @@ export function ContentControlForm({ initialValues }: ContentControlFormProps) {
       ))}
 
       <div className="sticky bottom-6 flex items-center gap-3">
-        <Button type="submit" disabled={pending} className="bg-admin-green text-admin-bg hover:bg-admin-green/90">
+        <Button type="submit" disabled={pending} className="bg-admin-green text-admin-onPrimary hover:bg-admin-green/90">
           {pending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {pending ? "Saving..." : "Save Changes"}
         </Button>

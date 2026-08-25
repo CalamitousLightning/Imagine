@@ -11,7 +11,7 @@ export default async function PublicLayout({ children }: { children: React.React
   ]);
 
   return (
-    <ThemeScopeProvider className="theme-public bg-public-ivory font-body text-public-black">
+    <ThemeScopeProvider surface="public" className="theme-public bg-public-ivory font-body text-public-black">
       <SiteHeader siteName={settings.site_name} />
       <main>{children}</main>
       <SiteFooter settings={settings} tagline={content["footer.tagline"]} />

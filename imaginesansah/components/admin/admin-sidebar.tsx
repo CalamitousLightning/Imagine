@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const LINKS = [
   { href: "/control", label: "Overview", icon: LayoutDashboard },
@@ -41,7 +42,10 @@ export function AdminSidebar({ adminName }: { adminName: string | null }) {
   return (
     <aside className="hidden h-screen w-60 shrink-0 flex-col border-r border-admin-border bg-admin-secondary md:flex">
       <div className="border-b border-admin-border p-5">
-        <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-admin-muted">System</p>
+        <div className="flex items-center justify-between">
+          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-admin-muted">System</p>
+          <ThemeToggle surface="admin" />
+        </div>
         <p className="mt-1 font-display text-base font-medium text-admin-text">
           ImagineSansah <span className="text-admin-green">//</span> Creative Control
         </p>

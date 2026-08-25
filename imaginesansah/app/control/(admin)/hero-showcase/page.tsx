@@ -32,7 +32,7 @@ export default async function AdminHeroShowcasePage() {
         <HeroSlideEditorDialog
           projects={projects ?? []}
           trigger={
-            <Button className="bg-admin-green text-admin-bg hover:bg-admin-green/90">
+            <Button className="bg-admin-green text-admin-onPrimary hover:bg-admin-green/90">
               <Plus className="mr-1.5 h-4 w-4" /> New Slide
             </Button>
           }

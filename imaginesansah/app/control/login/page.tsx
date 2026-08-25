@@ -85,7 +85,7 @@ function LoginForm() {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-admin-green text-admin-bg hover:bg-admin-green/90"
+            className="w-full bg-admin-green text-admin-onPrimary hover:bg-admin-green/90"
           >
             {loading ? "Authenticating..." : "Sign In"}
           </Button>

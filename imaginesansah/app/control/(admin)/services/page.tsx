@@ -24,7 +24,7 @@ export default async function AdminServicesPage() {
         </div>
         <ServiceEditorDialog
           trigger={
-            <Button className="bg-admin-green text-admin-bg hover:bg-admin-green/90">
+            <Button className="bg-admin-green text-admin-onPrimary hover:bg-admin-green/90">
               <Plus className="mr-1.5 h-4 w-4" /> New Service
             </Button>
           }

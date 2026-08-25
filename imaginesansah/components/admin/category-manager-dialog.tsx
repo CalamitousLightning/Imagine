@@ -198,7 +198,7 @@ export function CategoryManagerDialog({ categories }: { categories: Category[] }
           <Button
             onClick={handleAdd}
             disabled={pending || !newName.trim()}
-            className="shrink-0 bg-admin-green text-admin-bg hover:bg-admin-green/90"
+            className="shrink-0 bg-admin-green text-admin-onPrimary hover:bg-admin-green/90"
           >
             <Plus className="h-4 w-4" />
           </Button>

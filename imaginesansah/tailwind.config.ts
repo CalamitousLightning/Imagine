@@ -7,26 +7,34 @@ const config: Config = {
     extend: {
       colors: {
         // ---- PUBLIC WEBSITE: editorial / artistic / premium / bold ----
+        // Backed by CSS variables (globals.css) instead of literal hex so the
+        // light/dark mode toggle and accent switcher (violet/cyan/gold) work
+        // by re-pointing these variables — no component ever needs to change
+        // which class it uses.
         public: {
-          ivory: "#F5F1E8",
-          black: "#111111",
-          white: "#FFFFFF",
-          violet: "#7C3AED",
-          coral: "#FF5A36",
-          lime: "#C7F36B",
+          ivory: "hsl(var(--pub-ivory) / <alpha-value>)",
+          black: "hsl(var(--pub-black) / <alpha-value>)",
+          white: "hsl(var(--pub-white) / <alpha-value>)",
+          violet: "hsl(var(--pub-accent) / <alpha-value>)",
+          coral: "hsl(var(--pub-coral) / <alpha-value>)",
+          lime: "hsl(var(--pub-lime) / <alpha-value>)",
         },
         // ---- PRIVATE ADMIN: dark / technical / futuristic / creative ----
         admin: {
-          bg: "#070A0D",
-          secondary: "#0D1117",
-          panel: "#111820",
-          border: "#1E2A32",
-          text: "#F5F7F9",
-          muted: "#8B949E",
-          green: "#39FF88",
-          violet: "#8B5CF6",
-          cyan: "#22D3EE",
-          amber: "#F5B942",
+          bg: "hsl(var(--adm-bg) / <alpha-value>)",
+          secondary: "hsl(var(--adm-secondary) / <alpha-value>)",
+          panel: "hsl(var(--adm-panel) / <alpha-value>)",
+          border: "hsl(var(--adm-border) / <alpha-value>)",
+          text: "hsl(var(--adm-text) / <alpha-value>)",
+          muted: "hsl(var(--adm-muted) / <alpha-value>)",
+          green: "hsl(var(--adm-primary) / <alpha-value>)",
+          violet: "hsl(var(--adm-violet) / <alpha-value>)",
+          cyan: "hsl(var(--adm-cyan) / <alpha-value>)",
+          amber: "hsl(var(--adm-amber) / <alpha-value>)",
+          // Text color for content sitting on top of a bright admin-green/
+          // primary-colored surface (buttons, badges) — always dark, on
+          // purpose, regardless of light/dark mode or which accent is active.
+          onPrimary: "hsl(var(--adm-on-primary) / <alpha-value>)",
         },
         // ---- shadcn-style semantic tokens ----
         // Driven by CSS variables (see globals.css) so the SAME primitives

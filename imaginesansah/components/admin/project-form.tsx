@@ -196,7 +196,7 @@ export function ProjectForm({ categories, project }: ProjectFormProps) {
           </div>
 
           <div className="flex flex-col gap-2">
-            <Button type="submit" disabled={pending} className="bg-admin-green text-admin-bg hover:bg-admin-green/90">
+            <Button type="submit" disabled={pending} className="bg-admin-green text-admin-onPrimary hover:bg-admin-green/90">
               {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
               {pending ? "Saving..." : project ? "Save Changes" : "Create Project"}
             </Button>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const NAV = [
   { href: "/portfolio", label: "Portfolio" },
@@ -28,19 +29,22 @@ export function MobileNav() {
       {open && (
         <div className="fixed inset-0 z-50 md:hidden">
           <div
-            className="absolute inset-0 bg-public-black/40 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
           <div className="absolute right-0 top-0 flex h-full w-[80%] max-w-xs flex-col bg-public-white p-6 shadow-[-20px_0_60px_rgba(17,17,17,0.15)]">
             <div className="flex items-center justify-between">
               <span className="font-display text-lg text-public-black">Menu</span>
-              <button
-                onClick={() => setOpen(false)}
-                aria-label="Close menu"
-                className="rounded-full border border-public-black/15 p-2 text-public-black hover:border-public-violet hover:text-public-violet"
-              >
-                <X className="h-4 w-4" />
-              </button>
+              <div className="flex items-center gap-2">
+                <ThemeToggle surface="public" />
+                <button
+                  onClick={() => setOpen(false)}
+                  aria-label="Close menu"
+                  className="rounded-full border border-public-black/15 p-2 text-public-black hover:border-public-violet hover:text-public-violet"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
             </div>
 
             <nav className="mt-10 flex flex-col gap-1">

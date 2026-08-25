@@ -95,7 +95,7 @@ export function ServiceEditorDialog({ service, trigger }: ServiceEditorDialogPro
             <Switch id="service-published" checked={published} onCheckedChange={setPublished} />
           </div>
 
-          <Button type="submit" disabled={pending} className="w-full bg-admin-green text-admin-bg hover:bg-admin-green/90">
+          <Button type="submit" disabled={pending} className="w-full bg-admin-green text-admin-onPrimary hover:bg-admin-green/90">
             {pending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {pending ? "Saving..." : "Save Service"}
           </Button>

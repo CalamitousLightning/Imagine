@@ -21,7 +21,7 @@ export default async function AdminPortfolioPage() {
         <div className="flex items-center gap-2">
           <CategoryManagerDialog categories={categories} />
           <Link href="/control/portfolio/new">
-            <Button className="bg-admin-green text-admin-bg hover:bg-admin-green/90">
+            <Button className="bg-admin-green text-admin-onPrimary hover:bg-admin-green/90">
               <Plus className="mr-1.5 h-4 w-4" /> New Project
             </Button>
           </Link>

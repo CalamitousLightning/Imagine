@@ -56,13 +56,13 @@ export function GalleryLightbox({ images, title }: { images: Media[]; title: str
           role="dialog"
           aria-modal="true"
           aria-label="Image viewer"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-public-black/95 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4"
           onClick={() => setOpenIndex(null)}
         >
           <button
             onClick={() => setOpenIndex(null)}
             aria-label="Close"
-            className="absolute right-5 top-5 rounded-full bg-public-white/10 p-2 text-public-white hover:bg-public-white/20"
+            className="absolute right-5 top-5 rounded-full bg-white/10 p-2 text-white hover:bg-white/20"
           >
             <X className="h-5 w-5" />
           </button>
@@ -73,7 +73,7 @@ export function GalleryLightbox({ images, title }: { images: Media[]; title: str
               setOpenIndex((openIndex - 1 + images.length) % images.length);
             }}
             aria-label="Previous image"
-            className="absolute left-5 top-1/2 -translate-y-1/2 rounded-full bg-public-white/10 p-2 text-public-white hover:bg-public-white/20"
+            className="absolute left-5 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-2 text-white hover:bg-white/20"
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
@@ -97,7 +97,7 @@ export function GalleryLightbox({ images, title }: { images: Media[]; title: str
               setOpenIndex((openIndex + 1) % images.length);
             }}
             aria-label="Next image"
-            className="absolute right-5 top-1/2 -translate-y-1/2 rounded-full bg-public-white/10 p-2 text-public-white hover:bg-public-white/20"
+            className="absolute right-5 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-2 text-white hover:bg-white/20"
           >
             <ChevronRight className="h-6 w-6" />
           </button>

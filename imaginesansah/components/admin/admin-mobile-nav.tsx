@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const LINKS = [
   { href: "/control", label: "Overview", icon: LayoutDashboard },
@@ -60,6 +61,10 @@ export function AdminMobileNav() {
 
       {open && (
         <nav className="space-y-1 border-t border-admin-border p-3">
+          <div className="flex items-center justify-between px-3 pb-2">
+            <span className="font-mono text-[11px] uppercase tracking-wide text-admin-muted">Appearance</span>
+            <ThemeToggle surface="admin" />
+          </div>
           {LINKS.map((link) => {
             const Icon = link.icon;
             const active = pathname === link.href;

@@ -35,10 +35,10 @@ function SlideComposition({ slide, reduceMotion }: { slide: HeroSlide; reduceMot
             initial={reduceMotion ? false : { opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: easing }}
-            className="absolute bottom-12 left-6 max-w-xl lg:left-12"
+            className="absolute inset-x-4 bottom-8 sm:inset-x-6 sm:bottom-12 sm:max-w-xl lg:left-12 lg:right-auto"
           >
             {slide.headline && (
-              <h2 className="font-display text-4xl font-medium leading-[1.05] text-public-white lg:text-6xl">
+              <h2 className="font-display text-2xl font-medium leading-[1.1] text-public-white sm:text-4xl lg:text-6xl">
                 {slide.headline}
               </h2>
             )}
@@ -48,13 +48,29 @@ function SlideComposition({ slide, reduceMotion }: { slide: HeroSlide; reduceMot
 
     case "portrait_beside_design":
       return (
-        <div className="grid h-full w-full grid-cols-2">
-          <div className="relative">
-            {primary && <Image src={primary} alt="" fill priority className="object-cover" sizes="50vw" />}
+        <div className="flex h-full w-full flex-col sm:flex-row">
+          <div className="relative h-1/2 w-full sm:h-full sm:w-1/2">
+            {primary && (
+              <Image
+                src={primary}
+                alt=""
+                fill
+                priority
+                className="object-cover"
+                sizes="(max-width: 640px) 100vw, 50vw"
+              />
+            )}
           </div>
-          <div className="relative bg-public-ivory">
+          <div className="relative h-1/2 w-full bg-public-ivory sm:h-full sm:w-1/2">
             {secondary && (
-              <Image src={secondary} alt="" fill priority className="object-contain p-10" sizes="50vw" />
+              <Image
+                src={secondary}
+                alt=""
+                fill
+                priority
+                className="object-contain p-6 sm:p-10"
+                sizes="(max-width: 640px) 100vw, 50vw"
+              />
             )}
           </div>
           {slide.headline && (
@@ -62,7 +78,7 @@ function SlideComposition({ slide, reduceMotion }: { slide: HeroSlide; reduceMot
               initial={reduceMotion ? false : { opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: easing }}
-              className="absolute bottom-10 left-6 max-w-md font-display text-3xl font-medium text-public-black lg:text-5xl"
+              className="absolute inset-x-4 bottom-4 rounded-sm bg-public-ivory/90 px-3 py-2 font-display text-xl font-medium text-public-black backdrop-blur-sm sm:inset-x-auto sm:bottom-10 sm:left-6 sm:max-w-md sm:bg-transparent sm:px-0 sm:py-0 sm:text-3xl sm:backdrop-blur-0 lg:text-5xl"
             >
               {slide.headline}
             </motion.h2>
@@ -72,25 +88,34 @@ function SlideComposition({ slide, reduceMotion }: { slide: HeroSlide; reduceMot
 
     case "portrait_typography_branding":
       return (
-        <div className="relative flex h-full w-full items-center justify-center bg-public-black">
+        <div className="flex h-full w-full flex-col bg-public-black sm:flex-row sm:items-center sm:justify-center">
           {primary && (
-            <div className="relative h-full w-1/2">
-              <Image src={primary} alt="" fill priority className="object-cover opacity-90" sizes="50vw" />
+            <div className="relative h-1/2 w-full sm:h-full sm:w-1/2">
+              <Image
+                src={primary}
+                alt=""
+                fill
+                priority
+                className="object-cover opacity-90"
+                sizes="(max-width: 640px) 100vw, 50vw"
+              />
             </div>
           )}
           <motion.div
             initial={reduceMotion ? false : { opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, ease: easing }}
-            className="flex w-1/2 flex-col items-start justify-center px-8 lg:px-14"
+            className="flex h-1/2 w-full flex-col items-start justify-center px-6 py-4 sm:h-full sm:w-1/2 sm:px-8 lg:px-14"
           >
             {slide.headline && (
-              <h2 className="font-display text-4xl italic leading-tight text-public-white lg:text-6xl">
+              <h2 className="font-display text-2xl italic leading-tight text-public-white sm:text-4xl lg:text-6xl">
                 {slide.headline}
               </h2>
             )}
             {slide.subtext && (
-              <p className="mt-4 max-w-sm font-body text-public-white/70">{slide.subtext}</p>
+              <p className="mt-3 max-w-sm font-body text-sm text-public-white/70 sm:mt-4 sm:text-base">
+                {slide.subtext}
+              </p>
             )}
           </motion.div>
         </div>
@@ -115,9 +140,16 @@ function SlideComposition({ slide, reduceMotion }: { slide: HeroSlide; reduceMot
                 <p className="mt-5 font-body text-public-black/70">{slide.subtext}</p>
               )}
             </motion.div>
-            <div className="relative col-span-12 overflow-hidden rounded-sm lg:col-span-7">
+            <div className="relative col-span-12 h-56 overflow-hidden rounded-sm sm:h-72 lg:col-span-7 lg:h-full">
               {secondary && (
-                <Image src={secondary} alt="" fill priority className="object-cover" sizes="60vw" />
+                <Image
+                  src={secondary}
+                  alt=""
+                  fill
+                  priority
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                />
               )}
             </div>
           </div>
@@ -148,7 +180,7 @@ function SlideComposition({ slide, reduceMotion }: { slide: HeroSlide; reduceMot
               initial={reduceMotion ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: easing }}
-              className="absolute left-8 top-12 max-w-sm font-display text-4xl font-medium leading-[1.05] text-public-black lg:text-5xl"
+              className="absolute inset-x-4 top-6 sm:inset-x-8 sm:top-12 sm:max-w-sm font-display text-2xl font-medium leading-[1.1] text-public-black sm:text-4xl lg:text-5xl"
             >
               {slide.headline}
             </motion.h2>
@@ -197,7 +229,7 @@ export function HeroShowcase({ slides }: HeroShowcaseProps) {
 
   return (
     <section
-      className="relative h-[78vh] min-h-[520px] w-full overflow-hidden"
+      className="relative h-[78vh] min-h-[420px] w-full overflow-hidden sm:min-h-[520px]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -219,30 +251,30 @@ export function HeroShowcase({ slides }: HeroShowcaseProps) {
       </AnimatePresence>
 
       {/* Controls */}
-      <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 items-center gap-4">
+      <div className="absolute bottom-4 left-1/2 z-10 flex w-[92%] max-w-full -translate-x-1/2 flex-wrap items-center justify-center gap-3 sm:bottom-6 sm:w-auto sm:gap-4">
         <button
           onClick={() => goTo(index - 1)}
           aria-label="Previous slide"
-          className="rounded-full bg-public-white/80 p-2 backdrop-blur-sm transition-colors hover:bg-public-white"
+          className="shrink-0 rounded-full bg-white/80 p-2 backdrop-blur-sm transition-colors hover:bg-white"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M10 3 5 8l5 5" stroke="#111" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center justify-center gap-2">
           {slides.map((s, i) => (
             <button
               key={s.id}
               onClick={() => goTo(i)}
               aria-label={`Go to slide ${i + 1}`}
               aria-current={i === index}
-              className="relative h-1.5 w-8 overflow-hidden rounded-full bg-public-black/20"
+              className="relative h-1.5 w-6 shrink-0 overflow-hidden rounded-full bg-black/20 sm:w-8"
             >
               {i === index && (
                 <motion.div
                   key={active.id}
-                  className="absolute inset-y-0 left-0 bg-public-black"
+                  className="absolute inset-y-0 left-0 bg-black"
                   initial={{ width: "0%" }}
                   animate={{ width: paused || reduceMotion ? "100%" : "100%" }}
                   transition={{ duration: reduceMotion ? 0 : active.duration_ms / 1000, ease: "linear" }}
@@ -255,7 +287,7 @@ export function HeroShowcase({ slides }: HeroShowcaseProps) {
         <button
           onClick={() => goTo(index + 1)}
           aria-label="Next slide"
-          className="rounded-full bg-public-white/80 p-2 backdrop-blur-sm transition-colors hover:bg-public-white"
+          className="shrink-0 rounded-full bg-white/80 p-2 backdrop-blur-sm transition-colors hover:bg-white"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M6 3l5 5-5 5" stroke="#111" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

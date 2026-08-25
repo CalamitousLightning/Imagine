@@ -10,11 +10,11 @@ export default async function ControlLayout({ children }: { children: React.Reac
   const admin = await getCurrentAdmin();
 
   return (
-    <ThemeScopeProvider className="theme-admin admin-scope flex min-h-screen bg-admin-bg font-body text-admin-text">
+    <ThemeScopeProvider surface="admin" className="theme-admin admin-scope flex min-h-screen bg-admin-bg font-body text-admin-text">
       <AdminSidebar adminName={admin.full_name} />
-      <div className="flex min-h-screen flex-1 flex-col">
+      <div className="flex min-h-screen min-w-0 flex-1 flex-col">
         <AdminMobileNav />
-        <main className="flex-1 p-5 md:p-8">{children}</main>
+        <main className="min-w-0 flex-1 overflow-x-hidden p-5 md:p-8">{children}</main>
       </div>
       <GhanaSignature />
     </ThemeScopeProvider>

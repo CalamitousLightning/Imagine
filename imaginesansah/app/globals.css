@@ -3,47 +3,135 @@
 @tailwind utilities;
 
 @layer base {
-  /* Shared shadcn-primitive tokens, scoped per theme so Button/Card/Input/etc.
-     render correctly in whichever surface they're mounted in. Values are HSL
-     triplets (no hsl() wrapper) because tailwind wraps them as hsl(var(--x)). */
+  /* ===========================================================
+     PUBLIC SITE — brand tokens, toggleable via data-mode / data-accent
+     on the .theme-public wrapper (see lib/theme-scope.tsx).
+
+     `--pub-ivory` and `--pub-black` are a deliberate INVERTING PAIR:
+     ivory is the page surface, black is the ink. In dark mode they
+     swap lightness, and `--pub-white` (card/panel surface) inverts
+     alongside them — so every existing `bg-public-black`,
+     `text-public-black`, `bg-public-white` etc. across the app
+     automatically becomes correct in dark mode with zero component
+     changes. Elements that must stay fixed regardless of mode
+     (lightbox scrim, glass controls over hero photography) were
+     switched to plain `bg-black`/`bg-white` instead of these tokens —
+     see gallery-lightbox.tsx and hero-showcase.tsx.
+     ============================================================ */
   .theme-public {
-    --background: 45 33% 94%;      /* public-ivory #F5F1E8 */
-    --foreground: 0 0% 7%;         /* public-black #111111 */
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 7%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 7%;
-    --primary: 0 0% 7%;
-    --primary-foreground: 0 0% 100%;
+    --pub-ivory: 45 33% 94%;       /* page surface (light): #F5F1E8 */
+    --pub-black: 0 0% 7%;          /* ink (light): #111111 */
+    --pub-white: 0 0% 100%;        /* card surface (light): #FFFFFF */
+    --pub-accent: 262 83% 58%;     /* accent — violet default: #7C3AED */
+    --pub-coral: 11 100% 61%;      /* secondary accent: #FF5A36 */
+    --pub-lime: 80 85% 69%;        /* rare tertiary accent: #C7F36B */
+
+    /* shadcn primitives (Button/Card/Input/Select/Dialog) mirror the
+       tokens above so portaled UI matches the toggled theme too. */
+    --background: var(--pub-ivory);
+    --foreground: var(--pub-black);
+    --card: var(--pub-white);
+    --card-foreground: var(--pub-black);
+    --popover: var(--pub-white);
+    --popover-foreground: var(--pub-black);
+    --primary: var(--pub-black);
+    --primary-foreground: var(--pub-white);
     --secondary: 45 20% 88%;
-    --secondary-foreground: 0 0% 7%;
+    --secondary-foreground: var(--pub-black);
     --muted: 45 20% 88%;
     --muted-foreground: 0 0% 40%;
-    --border: 0 0% 7% / 0.12;
-    --input: 0 0% 7% / 0.16;
-    --ring: 262 83% 58%;           /* public-violet #7C3AED */
+    --border: var(--pub-black) / 0.12;
+    --input: var(--pub-black) / 0.16;
+    --ring: var(--pub-accent);
   }
 
-  .theme-admin {
-    --background: 200 27% 4%;      /* admin-bg #070A0D */
-    --foreground: 200 20% 96%;     /* admin-text #F5F7F9 */
-    --card: 200 20% 9%;            /* admin-panel #111820 */
-    --card-foreground: 200 20% 96%;
-    --popover: 200 20% 9%;
-    --popover-foreground: 200 20% 96%;
-    --primary: 152 100% 62%;       /* admin-green #39FF88 */
-    --primary-foreground: 200 27% 4%;
-    --secondary: 200 22% 7%;       /* admin-secondary #0D1117 */
-    --secondary-foreground: 200 20% 96%;
-    --muted: 200 22% 7%;
-    --muted-foreground: 212 8% 58%; /* admin-muted #8B949E */
-    --border: 200 22% 15%;         /* admin-border #1E2A32 */
-    --input: 200 22% 15%;
-    --ring: 258 90% 66%;           /* admin-violet #8B5CF6 */
+  .theme-public[data-mode="dark"],
+  html[data-public-mode="dark"] .theme-public {
+    --pub-ivory: 0 0% 8%;          /* page surface (dark): near-black */
+    --pub-black: 0 0% 95%;         /* ink (dark): near-white */
+    --pub-white: 0 0% 14%;         /* card surface (dark): dark panel */
+    --secondary: 0 0% 16%;
+    --muted: 0 0% 16%;
+    --muted-foreground: 0 0% 65%;
   }
+
+  .theme-public[data-accent="cyan"],
+  html[data-public-accent="cyan"] .theme-public { --pub-accent: 188 86% 53%; }
+  .theme-public[data-accent="gold"],
+  html[data-public-accent="gold"] .theme-public { --pub-accent: 40 90% 55%; }
+
+  /* ===========================================================
+     ADMIN CONTROL ROOM — dark by default, per the brief. `--adm-bg`
+     through `--adm-muted` form a straightforward light/dark pair
+     (unlike the public site, nothing here does double duty as both
+     a background and a foreground, so this is a plain swap).
+     `--adm-primary` is the swappable accent (green/cyan/gold) used
+     for the active nav item and primary actions — matching the
+     brief's own grouping of green under "Online / Success / Active
+     nav / Important actions" as one role. `--adm-violet`, `--adm-cyan`,
+     `--adm-amber` keep their FIXED semantic meanings (creative /
+     database / warning) from the color-usage spec and are not
+     affected by the accent switch, even when it happens to land on
+     "cyan". `--adm-on-primary` is always dark — the readable text
+     color for anything sitting on a bright primary-colored surface.
+     ============================================================ */
+  .theme-admin {
+    --adm-bg: 200 27% 4%;          /* #070A0D */
+    --adm-secondary: 200 22% 7%;   /* #0D1117 */
+    --adm-panel: 200 20% 9%;       /* #111820 */
+    --adm-border: 200 22% 15%;     /* #1E2A32 */
+    --adm-text: 200 20% 96%;       /* #F5F7F9 */
+    --adm-muted: 212 8% 58%;       /* #8B949E */
+    --adm-primary: 152 100% 62%;   /* accent — green default: #39FF88 */
+    --adm-violet: 258 90% 66%;     /* fixed: creative — #8B5CF6 */
+    --adm-cyan: 188 86% 53%;       /* fixed: database/technical — #22D3EE */
+    --adm-amber: 40 90% 61%;       /* fixed: warning — #F5B942 */
+    --adm-on-primary: 200 27% 4%;  /* always dark text on bright buttons */
+
+    --background: var(--adm-bg);
+    --foreground: var(--adm-text);
+    --card: var(--adm-panel);
+    --card-foreground: var(--adm-text);
+    --popover: var(--adm-panel);
+    --popover-foreground: var(--adm-text);
+    --primary: var(--adm-primary);
+    --primary-foreground: var(--adm-on-primary);
+    --secondary: var(--adm-secondary);
+    --secondary-foreground: var(--adm-text);
+    --muted: var(--adm-secondary);
+    --muted-foreground: var(--adm-muted);
+    --border: var(--adm-border);
+    --input: var(--adm-border);
+    --ring: var(--adm-violet);
+  }
+
+  .theme-admin[data-mode="light"],
+  html[data-admin-mode="light"] .theme-admin {
+    --adm-bg: 40 25% 97%;
+    --adm-secondary: 40 18% 93%;
+    --adm-panel: 0 0% 100%;
+    --adm-border: 220 14% 88%;
+    --adm-text: 200 30% 9%;
+    --adm-muted: 215 10% 42%;
+  }
+
+  .theme-admin[data-accent="cyan"],
+  html[data-admin-accent="cyan"] .theme-admin { --adm-primary: 188 86% 45%; }
+  .theme-admin[data-accent="gold"],
+  html[data-admin-accent="gold"] .theme-admin { --adm-primary: 40 90% 50%; }
 
   html {
     scroll-behavior: smooth;
+  }
+
+  /* Nothing in this app should ever need horizontal scroll — this is a safety
+     net, not the fix (see hero-showcase.tsx for the actual mobile layout
+     fixes). Keeps any future stray absolutely-positioned or oversized element
+     from creating a page-level horizontal scrollbar / clipped content. */
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   @media (prefers-reduced-motion: reduce) {

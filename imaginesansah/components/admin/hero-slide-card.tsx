@@ -21,7 +21,7 @@ export function HeroSlideCard({
   const thumb = mediaUrl(slide.primary_media) || mediaUrl(slide.secondary_media);
 
   return (
-    <div className="flex items-center gap-4 rounded-md border border-admin-border bg-admin-panel p-3">
+    <div className="glow-card flex items-center gap-4 p-3">
       <div className="relative h-20 w-32 shrink-0 overflow-hidden rounded bg-admin-bg">
         {thumb ? (
           <Image src={thumb} alt="" fill className="object-cover" sizes="128px" />

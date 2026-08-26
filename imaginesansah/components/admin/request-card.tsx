@@ -42,7 +42,7 @@ export function RequestCard({ request }: RequestCardProps) {
   }
 
   return (
-    <div className="rounded-md border border-admin-border bg-admin-panel p-5">
+    <div className="glow-card p-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="font-display text-lg text-admin-text">{request.full_name}</p>

@@ -158,3 +158,279 @@
     outline-color: #39FF88;
   }
 }
+
+@layer components {
+  /* ==============================================================
+     VIVID SAAS CARD — glossy, app-like treatment (Linear / Stripe
+     Dashboard / Notion register). Built on `hsl(var(--card))` and
+     `hsl(var(--ring))` rather than hardcoded hex, so the hover glow
+     automatically follows whichever surface/accent is active
+     (public accent switch, admin light/dark + accent switch)
+     instead of forcing one brand's purple onto both surfaces.
+     Intentionally scoped to the admin control room — the public
+     site's ivory/black editorial identity is a deliberate contrast
+     to "SaaS dashboard," not an oversight. See Card usage in
+     app/control/(admin)/page.tsx, portfolio list, requests, and
+     media library for where this is applied.
+     ============================================================== */
+  .glow-card {
+    position: relative;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: hsl(var(--card));
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 2px 10px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    overflow: hidden;
+    isolation: isolate;
+    transition:
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Top inner glow */
+  .glow-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 45%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Glass overlay, fades in on hover */
+  .glow-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(135deg, hsl(var(--ring) / 0.08) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+  }
+
+  .glow-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px hsl(var(--ring) / 0.18);
+    border-color: hsl(var(--ring) / 0.3);
+  }
+
+  .glow-card:hover::after {
+    opacity: 1;
+  }
+
+  /* Direct children sit above the glow/overlay pseudo-elements */
+  .glow-card > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .glow-card {
+      transition: none;
+    }
+    .glow-card:hover {
+      transform: none;
+    }
+  }
+
+  /* Gradient placeholder for cover-image slots */
+  .glow-card-media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background: linear-gradient(135deg, #6C5CE7 0%, #A855F7 50%, #0EA5E9 100%);
+  }
+
+  .glow-card-content {
+    padding: 22px;
+  }
+
+  .glow-card-content h3 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+
+  /* ==============================================================
+     PILL BADGES — vivid accent chips. Separate from the Badge
+     component's request-status variants (new/reviewing/etc.),
+     which stay semantic and untouched.
+     ============================================================== */
+  .pill-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .pill-badge--purple { background: rgba(108, 92, 231, 0.12); color: #6C5CE7; }
+  .pill-badge--blue { background: rgba(14, 165, 233, 0.12); color: #0EA5E9; }
+  .pill-badge--pink { background: rgba(236, 72, 153, 0.12); color: #EC4899; }
+  .pill-badge--solid {
+    color: #fff;
+    background: linear-gradient(135deg, #6C5CE7 0%, #A855F7 100%);
+    box-shadow: 0 4px 14px rgba(108, 92, 231, 0.35);
+  }
+
+  /* ==============================================================
+     GRADIENT BUTTON — opt-in vivid variant, separate from Button's
+     `default` variant (which stays mapped to each surface's own
+     accent so the public black CTA / admin green CTA are untouched).
+     ============================================================== */
+  .btn-gradient {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #6C5CE7 0%, #A855F7 100%);
+    box-shadow: 0 8px 20px rgba(108, 92, 231, 0.28);
+    transition:
+      transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(108, 92, 231, 0.38);
+  }
+
+  .btn-gradient:active {
+    transform: translateY(0) scale(0.97);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-gradient:hover { transform: none; }
+  }
+
+  /* ==============================================================
+     STICKY GLASS HEADER — theme-aware version of the same recipe
+     SiteHeader already applies inline (bg-public-ivory/80
+     backdrop-blur-md); available as a class for anywhere else that
+     wants the identical app-like sticky-blur feel.
+     ============================================================== */
+  .sticky-glass {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: hsl(var(--background) / 0.8);
+  }
+
+  /* Auto-fill dashboard grid for card listings */
+  .showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  /* ==============================================================
+     PUBLIC-SITE GLOW CARD — same glossy mechanics as .glow-card
+     (rounded 20px, top inner glow, lift-on-hover, glow shadow),
+     but built on the public brand tokens (--pub-white / --pub-accent)
+     instead of the admin's purple/blue/pink so it reads as part of
+     the same editorial identity, not a different app bolted on.
+     The accent glow follows whichever public accent is active
+     (violet default, or the cyan/gold switch) automatically.
+     ============================================================== */
+  .glow-card-public {
+    position: relative;
+    border-radius: 20px;
+    border: 1px solid hsl(var(--pub-black) / 0.08);
+    background: hsl(var(--pub-white));
+    box-shadow: 0 10px 40px rgba(17, 17, 17, 0.06), 0 2px 10px rgba(17, 17, 17, 0.04);
+    overflow: hidden;
+    isolation: isolate;
+    transition:
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glow-card-public::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(180deg, hsl(var(--pub-white) / 0.8) 0%, hsl(var(--pub-white) / 0) 45%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .glow-card-public::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(135deg, hsl(var(--pub-accent) / 0.07) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+  }
+
+  .glow-card-public:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px hsl(var(--pub-accent) / 0.16);
+    border-color: hsl(var(--pub-accent) / 0.3);
+  }
+
+  .glow-card-public:hover::after {
+    opacity: 1;
+  }
+
+  .glow-card-public > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .glow-card-public { transition: none; }
+    .glow-card-public:hover { transform: none; }
+  }
+
+  /* Pill badges tuned to the public palette (violet accent / coral / lime) */
+  .pill-badge-public {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .pill-badge-public--accent {
+    color: #fff;
+    background: linear-gradient(135deg, hsl(var(--pub-accent)) 0%, hsl(var(--pub-accent) / 0.7) 100%);
+    box-shadow: 0 4px 14px hsl(var(--pub-accent) / 0.35);
+  }
+
+  .pill-badge-public--coral { background: hsl(var(--pub-coral) / 0.14); color: hsl(var(--pub-coral)); }
+  .pill-badge-public--lime { background: hsl(var(--pub-lime) / 0.35); color: hsl(var(--pub-black)); }
+}

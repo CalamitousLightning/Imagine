@@ -8,7 +8,7 @@ export function ProjectCard({ project }: { project: Project }) {
 
   return (
     <Link href={`/portfolio/${project.slug}`} className="group block">
-      <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-public-white shadow-[0_2px_16px_rgba(17,17,17,0.06)] transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_20px_45px_rgba(17,17,17,0.16)]">
+      <div className="glow-card-public group aspect-[4/3]">
         {cover && (
           <Image
             src={cover}
@@ -19,7 +19,7 @@ export function ProjectCard({ project }: { project: Project }) {
           />
         )}
         {project.is_featured && (
-          <span className="absolute left-3 top-3 rounded-full bg-public-black px-2.5 py-1 font-body text-[11px] uppercase tracking-wide text-public-white">
+          <span className="pill-badge-public pill-badge-public--accent absolute left-3 top-3">
             Featured
           </span>
         )}

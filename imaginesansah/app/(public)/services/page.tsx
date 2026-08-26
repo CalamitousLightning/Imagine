@@ -24,13 +24,13 @@ export default async function ServicesPage() {
           Services will be listed here soon.
         </p>
       ) : (
-        <div className="mt-14 grid gap-x-8 gap-y-16 sm:grid-cols-2">
+        <div className="mt-14 grid gap-6 sm:grid-cols-2">
           {services.map((service) => {
             const iconUrl = mediaUrl(service.icon);
             return (
-              <div key={service.id} className="border-t border-public-black/10 pt-8">
+              <div key={service.id} className="glow-card-public p-7">
                 {iconUrl && (
-                  <div className="relative mb-5 aspect-video w-full max-w-xs overflow-hidden">
+                  <div className="relative mb-5 aspect-video w-full overflow-hidden rounded-xl">
                     <Image src={iconUrl} alt="" fill className="object-cover" sizes="320px" />
                   </div>
                 )}
@@ -40,7 +40,7 @@ export default async function ServicesPage() {
                 )}
                 <Link
                   href={`/start-a-project?service=${service.slug}`}
-                  className="mt-5 inline-block font-body text-sm font-medium text-public-violet hover:underline"
+                  className="pill-badge-public pill-badge-public--accent mt-6 inline-flex px-5 py-2.5 text-sm normal-case tracking-normal"
                 >
                   Request this service →
                 </Link>

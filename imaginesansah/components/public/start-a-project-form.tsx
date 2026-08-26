@@ -118,7 +118,7 @@ export function StartAProjectForm({
       : null;
 
     return (
-      <div className="rounded-md border border-public-black/10 bg-public-white p-10 text-center">
+      <div className="glow-card-public p-10 text-center sm:p-14">
         <CheckCircle2 className="mx-auto h-10 w-10 text-public-violet" />
         <h2 className="mt-4 font-display text-2xl text-public-black">Request received.</h2>
         <p className="mt-2 font-body text-public-black/60">
@@ -139,7 +139,7 @@ export function StartAProjectForm({
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="glow-card-public space-y-6 p-7 sm:p-10">
       {submitError && (
         <p className="rounded-md border border-red-500/20 bg-red-500/5 p-3 font-body text-sm text-red-600">
           {submitError}

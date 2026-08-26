@@ -27,7 +27,7 @@ export function ProjectCardAdmin({ project }: { project: Project }) {
   }
 
   return (
-    <div className="group relative overflow-hidden rounded-md border border-admin-border bg-admin-panel">
+    <div className="glow-card group">
       <div className="relative aspect-[4/3] bg-admin-bg">
         {thumb ? (
           <Image src={thumb} alt={project.title} fill className="object-cover" sizes="300px" />
@@ -69,7 +69,7 @@ export function ProjectCardAdmin({ project }: { project: Project }) {
         </span>
       </div>
 
-      <div className="p-3">
+      <div className="p-[22px]">
         <p className="truncate font-display text-sm text-admin-text">{project.title}</p>
         <p className="mt-0.5 font-mono text-[11px] text-admin-muted">
           {project.category?.name ?? "Uncategorized"}

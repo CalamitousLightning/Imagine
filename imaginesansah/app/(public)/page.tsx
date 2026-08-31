@@ -109,7 +109,7 @@ export default async function HomePage() {
             href="/start-a-project"
             className="mt-8 inline-block rounded-full bg-public-coral px-8 py-3 font-body text-sm font-medium text-public-black shadow-[0_10px_30px_rgba(255,90,54,0.4)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_38px_rgba(255,90,54,0.55)] motion-reduce:transition-none"
           >
-            Start a Project
+            Fill a Form
           </Link>
         </div>
       </section>

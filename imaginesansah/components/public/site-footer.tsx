@@ -1,9 +1,12 @@
-import Link from "next/link";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import type { SiteSettings } from "@/types/domain";
 
 export function SiteFooter({ settings, tagline }: { settings: SiteSettings; tagline?: string }) {
   const year = new Date().getFullYear();
   const socials = Object.entries(settings.social_links || {});
+  const whatsappUrl = settings.whatsapp_number
+    ? buildWhatsAppUrl(settings.whatsapp_number, settings.whatsapp_default_greeting)
+    : null;
 
   return (
     <footer className="relative border-t border-public-black/10 bg-public-black text-public-white">
@@ -21,7 +24,13 @@ export function SiteFooter({ settings, tagline }: { settings: SiteSettings; tagl
             <ul className="mt-3 space-y-2 font-body text-sm text-public-white/80">
               {settings.email && <li><a href={`mailto:${settings.email}`}>{settings.email}</a></li>}
               {settings.location && <li>{settings.location}</li>}
-              <li><Link href="/start-a-project">Start a Project →</Link></li>
+              {whatsappUrl && (
+                <li>
+                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-public-coral">
+                    {settings.whatsapp_number}
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
 

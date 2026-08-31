@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MobileNav } from "@/components/public/mobile-nav";
+import { SiteLogo } from "@/components/public/site-logo";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const NAV = [
@@ -13,12 +14,7 @@ export function SiteHeader({ siteName }: { siteName: string }) {
   return (
     <header className="sticky top-0 z-40 border-b border-public-black/10 bg-public-ivory/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
-        <Link
-          href="/"
-          className="font-display text-xl font-medium tracking-tight text-public-black"
-        >
-          {siteName}
-        </Link>
+        <SiteLogo siteName={siteName} />
 
         <nav className="hidden items-center gap-9 md:flex">
           {NAV.map((item) => (

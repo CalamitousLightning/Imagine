@@ -32,6 +32,13 @@ export const metadata: Metadata = {
   },
   description:
     "ImagineSansah is a creative graphic designer crafting bold, memorable and meaningful visual identities.",
+  // Drop the file at /public/imaginesansah.jpeg — Next.js serves it straight
+  // from there, no other wiring needed.
+  icons: {
+    icon: [{ url: "/imaginesansah.jpeg", type: "image/jpeg" }],
+    shortcut: [{ url: "/imaginesansah.jpeg", type: "image/jpeg" }],
+    apple: [{ url: "/imaginesansah.jpeg", type: "image/jpeg" }],
+  },
 };
 
 // Explicit rather than relying on Next's default — guarantees every device

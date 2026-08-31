@@ -96,7 +96,7 @@ export default async function AboutPage() {
             href="/start-a-project"
             className="mt-10 inline-block rounded-full bg-public-black px-6 py-3 font-body text-sm font-medium text-public-white hover:bg-public-violet"
           >
-            Start a Project
+            Fill a Form
           </Link>
         </div>
       </div>

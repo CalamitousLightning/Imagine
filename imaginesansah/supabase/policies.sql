@@ -52,6 +52,15 @@ create policy "media_admin_all" on media for all using (is_admin()) with check (
 create policy "media_public_insert_client_files" on media
   for insert with check (bucket = 'client-files');
 
+-- Public-facing pages join against `media` for every image (project covers,
+-- hero slides, service icons, profile/site-asset images) as an ANONYMOUS
+-- visitor. Without this, those joins silently return null under RLS for
+-- anyone who isn't an admin — the storage object itself is public, but the
+-- row describing which object to load never gets read, so no <img> tag is
+-- ever built. client-files is deliberately excluded — it stays admin-only.
+create policy "media_public_read_public_buckets" on media
+  for select using (bucket in ('portfolio', 'hero', 'profile', 'site-assets'));
+
 -- ---------------- PROJECTS (public reads published only; admin reads/writes everything) ----------------
 create policy "projects_public_read_published" on projects
   for select using (is_published = true or is_admin());

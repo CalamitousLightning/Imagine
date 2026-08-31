@@ -108,7 +108,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
             href="/start-a-project"
             className="rounded-full bg-public-black px-6 py-3 font-body text-sm font-medium text-public-white hover:bg-public-violet"
           >
-            Start a Project
+            Fill a form
           </Link>
           {settings.whatsapp_number && whatsappMessage && (
             <a

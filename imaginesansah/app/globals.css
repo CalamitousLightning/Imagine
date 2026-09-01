@@ -186,10 +186,10 @@
     position: relative;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    background: hsl(var(--card));
+    background: hsl(var(--card) / 0.6);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 2px 10px rgba(0, 0, 0, 0.05);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
     overflow: hidden;
     isolation: isolate;
     transition:
@@ -365,8 +365,10 @@
     position: relative;
     border-radius: 20px;
     border: 1px solid hsl(var(--pub-black) / 0.08);
-    background: hsl(var(--pub-white));
+    background: hsl(var(--pub-white) / 0.55);
     box-shadow: 0 10px 40px rgba(17, 17, 17, 0.06), 0 2px 10px rgba(17, 17, 17, 0.04);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
     overflow: hidden;
     isolation: isolate;
     transition:

@@ -93,7 +93,7 @@ export default async function HomePage() {
                 <ScrollReveal key={service.id} delay={Math.min(i, 5) * 0.06}>
                   <Link
                     href={`/start-a-project?service=${service.slug}`}
-                    className="group block h-full rounded-lg border border-public-black/10 bg-public-white p-8 shadow-[0_2px_16px_rgba(17,17,17,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-public-violet/40 hover:shadow-[0_16px_36px_rgba(124,58,237,0.14)]"
+                    className="glow-card-public group block h-full p-8"
                   >
                     <h3 className="font-display text-lg text-public-black">{service.title}</h3>
                     {service.description && (

@@ -12,7 +12,12 @@ const NAV = [
 
 export function SiteHeader({ siteName }: { siteName: string }) {
   return (
-    <header className="sticky top-0 z-40 border-b border-public-black/10 bg-public-ivory/80 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-public-black/10 bg-public-ivory/70 backdrop-blur-xl backdrop-saturate-150">
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-px"
+        style={{ background: "linear-gradient(90deg, transparent, hsl(var(--pub-accent) / 0.5), transparent)" }}
+      />
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
         <SiteLogo siteName={siteName} />
 

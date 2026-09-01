@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import type { Project, Service, HeroSlide, SiteSettings, Category } from "@/types/domain";
+import type { Project, Service, HeroSlide, SiteSettings, Category, JobShowcaseItem } from "@/types/domain";
 
 // Re-exported for convenience so existing imports of `mediaUrl` from this module keep working;
 // the actual implementation lives in lib/media.ts because it must also be importable from
@@ -113,4 +113,21 @@ export async function getSiteContent(keys: string[]): Promise<Record<string, str
   const map: Record<string, string> = {};
   (data ?? []).forEach((row) => (map[row.key] = row.value));
   return map;
+}
+
+/**
+ * Homepage "Recent Requests" feed. Reads from job_showcase (a narrow,
+ * privacy-safe mirror of client_requests — see supabase/schema.sql), never
+ * the client_requests table directly. Excludes cancelled requests here at
+ * the query layer; the RLS policy itself allows reading any status.
+ */
+export async function getJobShowcase(limit = 8): Promise<JobShowcaseItem[]> {
+  const supabase = createClient();
+  const { data } = await supabase
+    .from("job_showcase")
+    .select("id, client_name, project_type, status, has_reference_file, created_at, service:services(title)")
+    .neq("status", "cancelled")
+    .order("created_at", { ascending: false })
+    .limit(limit);
+  return (data as unknown as JobShowcaseItem[]) ?? [];
 }

@@ -43,9 +43,16 @@ export function StartAProjectForm({
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<{ name: string; projectType: string; budget?: string } | null>(
-    null
-  );
+  const [success, setSuccess] = useState<{
+    name: string;
+    projectType: string;
+    budget?: string | null;
+    service?: string | null;
+    description: string;
+    deadline?: string | null;
+    referenceNotes?: string | null;
+    fileCount: number;
+  } | null>(null);
 
   const {
     register,
@@ -95,7 +102,17 @@ export function StartAProjectForm({
         if (linkError) throw new Error(linkError.message);
       }
 
-      setSuccess({ name: values.full_name, projectType: values.project_type, budget: values.budget_range });
+      const matchedService = services.find((s) => s.id === values.service_id);
+      setSuccess({
+        name: values.full_name,
+        projectType: values.project_type,
+        budget: values.budget_range,
+        service: matchedService?.title ?? null,
+        description: values.description,
+        deadline: values.preferred_deadline,
+        referenceNotes: values.reference_notes,
+        fileCount: files.length,
+      });
     } catch (err) {
       setSubmitError(
         err instanceof MediaUploadError || err instanceof Error
@@ -114,6 +131,11 @@ export function StartAProjectForm({
           name: success.name,
           projectType: success.projectType,
           budget: success.budget,
+          service: success.service,
+          description: success.description,
+          deadline: success.deadline,
+          referenceNotes: success.referenceNotes,
+          fileCount: success.fileCount,
         })
       : null;
 
@@ -124,6 +146,12 @@ export function StartAProjectForm({
         <p className="mt-2 font-body text-public-black/60">
           Thanks, {success.name} — I&apos;ll review your project and get back to you soon.
         </p>
+        {success.fileCount > 0 && (
+          <p className="mt-2 font-body text-xs text-public-black/40">
+            Your {success.fileCount === 1 ? "file is" : `${success.fileCount} files are`} saved with this
+            request — no need to resend {success.fileCount === 1 ? "it" : "them"} on WhatsApp.
+          </p>
+        )}
         {whatsappNumber && message && (
           <a
             href={buildWhatsAppUrl(whatsappNumber, message)}

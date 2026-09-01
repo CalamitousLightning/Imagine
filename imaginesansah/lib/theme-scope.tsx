@@ -42,7 +42,7 @@ export function useThemeControls(): ThemeControls {
   return ctx;
 }
 
-const DEFAULT_MODE: Record<ThemeSurface, ThemeMode> = { public: "light", admin: "dark" };
+const DEFAULT_MODE: Record<ThemeSurface, ThemeMode> = { public: "dark", admin: "dark" };
 
 function storageKey(surface: ThemeSurface, kind: "mode" | "accent") {
   return `imaginesansah:${surface}:${kind}`;

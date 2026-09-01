@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getSiteSettings } from "@/lib/queries/public";
+import { SectionEyebrow } from "@/components/public/section-eyebrow";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export default async function ContactPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-24 lg:px-10">
-      <p className="font-body text-xs uppercase tracking-[0.2em] text-public-violet">Contact</p>
+      <SectionEyebrow index="05">Get in Touch</SectionEyebrow>
       <h1 className="mt-3 font-display text-4xl font-medium text-public-black lg:text-5xl">
         Let&apos;s talk.
       </h1>

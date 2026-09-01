@@ -3,6 +3,7 @@ import { HeroShowcase } from "@/components/public/hero-showcase";
 import { ProjectCard } from "@/components/public/project-card";
 import { JobShowcase } from "@/components/public/job-showcase";
 import { ScrollReveal } from "@/components/public/scroll-reveal";
+import { SectionEyebrow } from "@/components/public/section-eyebrow";
 import {
   getEnabledHeroSlides,
   getFeaturedProjects,
@@ -35,9 +36,7 @@ export default async function HomePage() {
         />
         <div className="relative mx-auto max-w-5xl">
           <ScrollReveal>
-            <p className="font-body text-xs uppercase tracking-[0.2em] text-public-violet">
-              Who I Am
-            </p>
+            <SectionEyebrow index="01">Who I Am</SectionEyebrow>
             <h2 className="mt-4 max-w-3xl font-display text-3xl font-medium leading-[1.15] text-public-black lg:text-5xl">
               {content["intro.philosophy"] ||
                 "A Ghanaian graphic designer building visual identities that people actually remember."}
@@ -52,11 +51,13 @@ export default async function HomePage() {
 
       {/* FEATURED WORK */}
       {featured.length > 0 && (
-        <section className="border-t border-public-black/10 bg-public-white py-28">
+        <section className="relative border-t border-public-black/10 bg-public-white py-28">
+          <span aria-hidden="true" className="absolute left-6 top-0 h-px w-16 bg-public-violet shadow-[0_0_12px_rgba(124,58,237,0.6)] lg:left-10" />
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
             <div className="mb-12 flex items-end justify-between">
             <ScrollReveal>
-              <h2 className="font-display text-3xl font-medium text-public-black lg:text-4xl">
+              <SectionEyebrow index="02">Selected Work</SectionEyebrow>
+              <h2 className="mt-3 font-display text-3xl font-medium text-public-black lg:text-4xl">
                 Featured Work
               </h2>
             </ScrollReveal>
@@ -78,10 +79,12 @@ export default async function HomePage() {
 
       {/* SERVICES TEASER */}
       {services.length > 0 && (
-        <section className="border-t border-public-black/10 py-28">
+        <section className="relative border-t border-public-black/10 py-28">
+          <span aria-hidden="true" className="absolute left-6 top-0 h-px w-16 bg-public-coral shadow-[0_0_12px_rgba(255,90,54,0.6)] lg:left-10" />
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
             <ScrollReveal>
-              <h2 className="mb-12 font-display text-3xl font-medium text-public-black lg:text-4xl">
+              <SectionEyebrow index="03">Capabilities</SectionEyebrow>
+              <h2 className="mb-12 mt-3 font-display text-3xl font-medium text-public-black lg:text-4xl">
                 What I Do
               </h2>
             </ScrollReveal>

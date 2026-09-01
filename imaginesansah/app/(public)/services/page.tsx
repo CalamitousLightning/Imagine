@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { getPublishedServices } from "@/lib/queries/public";
+import { SectionEyebrow } from "@/components/public/section-eyebrow";
 import { mediaUrl } from "@/lib/media";
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export default async function ServicesPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-20 lg:px-10">
-      <p className="font-body text-xs uppercase tracking-[0.2em] text-public-violet">Services</p>
+      <SectionEyebrow index="02">Capabilities</SectionEyebrow>
       <h1 className="mt-3 font-display text-4xl font-medium text-public-black lg:text-5xl">
         What I Do
       </h1>

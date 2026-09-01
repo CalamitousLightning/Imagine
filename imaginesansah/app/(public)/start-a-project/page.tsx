@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getPublishedServices, getSiteSettings } from "@/lib/queries/public";
+import { SectionEyebrow } from "@/components/public/section-eyebrow";
 import { StartAProjectForm } from "@/components/public/start-a-project-form";
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export default async function StartAProjectPage({
 
   return (
     <div className="mx-auto max-w-2xl px-6 py-20 lg:px-10">
-      <p className="font-body text-xs uppercase tracking-[0.2em] text-public-violet">Start a Project</p>
+      <SectionEyebrow index="06">Let's Work Together</SectionEyebrow>
       <h1 className="mt-3 font-display text-4xl font-medium text-public-black lg:text-5xl">
         Let&apos;s build something.
       </h1>

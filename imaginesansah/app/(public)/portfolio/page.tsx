@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getCategories, getPublishedProjects } from "@/lib/queries/public";
+import { SectionEyebrow } from "@/components/public/section-eyebrow";
 import { CategoryFilter } from "@/components/public/category-filter";
 import { ProjectCard } from "@/components/public/project-card";
 
@@ -20,7 +21,7 @@ export default async function PortfolioPage({
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10">
-      <p className="font-body text-xs uppercase tracking-[0.2em] text-public-violet">Portfolio</p>
+      <SectionEyebrow index="01">Selected Work</SectionEyebrow>
       <h1 className="mt-3 font-display text-4xl font-medium text-public-black lg:text-5xl">
         Selected Work
       </h1>

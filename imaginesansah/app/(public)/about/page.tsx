@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { getSiteContent, getSiteSettings, mediaUrl } from "@/lib/queries/public";
+import { SectionEyebrow } from "@/components/public/section-eyebrow";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
@@ -31,7 +32,7 @@ export default async function AboutPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-20 lg:px-10">
-      <p className="font-body text-xs uppercase tracking-[0.2em] text-public-violet">About</p>
+      <SectionEyebrow index="04">The Designer</SectionEyebrow>
 
       <div className="mt-6 grid gap-10 lg:grid-cols-[280px_1fr] lg:gap-16">
         {profileUrl && (

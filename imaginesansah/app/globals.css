@@ -19,9 +19,9 @@
      see gallery-lightbox.tsx and hero-showcase.tsx.
      ============================================================ */
   .theme-public {
-    --pub-ivory: 45 33% 94%;       /* page surface (light): #F5F1E8 */
-    --pub-black: 0 0% 7%;          /* ink (light): #111111 */
-    --pub-white: 0 0% 100%;        /* card surface (light): #FFFFFF */
+    --pub-ivory: 0 0% 8%;          /* page surface (default: dark): near-black */
+    --pub-black: 0 0% 95%;         /* ink (default: dark): near-white */
+    --pub-white: 0 0% 14%;         /* card surface (default: dark): dark panel */
     --pub-accent: 262 83% 58%;     /* accent — violet default: #7C3AED */
     --pub-coral: 11 100% 61%;      /* secondary accent: #FF5A36 */
     --pub-lime: 80 85% 69%;        /* rare tertiary accent: #C7F36B */
@@ -36,23 +36,23 @@
     --popover-foreground: var(--pub-black);
     --primary: var(--pub-black);
     --primary-foreground: var(--pub-white);
-    --secondary: 45 20% 88%;
+    --secondary: 0 0% 16%;
     --secondary-foreground: var(--pub-black);
-    --muted: 45 20% 88%;
-    --muted-foreground: 0 0% 40%;
+    --muted: 0 0% 16%;
+    --muted-foreground: 0 0% 65%;
     --border: var(--pub-black) / 0.12;
     --input: var(--pub-black) / 0.16;
     --ring: var(--pub-accent);
   }
 
-  .theme-public[data-mode="dark"],
-  html[data-public-mode="dark"] .theme-public {
-    --pub-ivory: 0 0% 8%;          /* page surface (dark): near-black */
-    --pub-black: 0 0% 95%;         /* ink (dark): near-white */
-    --pub-white: 0 0% 14%;         /* card surface (dark): dark panel */
-    --secondary: 0 0% 16%;
-    --muted: 0 0% 16%;
-    --muted-foreground: 0 0% 65%;
+  .theme-public[data-mode="light"],
+  html[data-public-mode="light"] .theme-public {
+    --pub-ivory: 45 33% 94%;       /* page surface (light): #F5F1E8 */
+    --pub-black: 0 0% 7%;          /* ink (light): #111111 */
+    --pub-white: 0 0% 100%;        /* card surface (light): #FFFFFF */
+    --secondary: 45 20% 88%;
+    --muted: 45 20% 88%;
+    --muted-foreground: 0 0% 40%;
   }
 
   .theme-public[data-accent="cyan"],
@@ -119,6 +119,15 @@
   html[data-admin-accent="cyan"] .theme-admin { --adm-primary: 188 86% 45%; }
   .theme-admin[data-accent="gold"],
   html[data-admin-accent="gold"] .theme-admin { --adm-primary: 40 90% 50%; }
+
+  /* Faint dot-grid texture for the public site — reads as "digital
+     studio" rather than "print magazine". Built from --pub-black at low
+     opacity, so it's automatically dark-dots-on-light in light mode and
+     light-dots-on-dark in dark mode with no extra variables needed. */
+  .theme-public {
+    background-image: radial-gradient(hsl(var(--pub-black) / 0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
 
   html {
     scroll-behavior: smooth;

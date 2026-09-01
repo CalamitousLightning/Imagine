@@ -105,3 +105,20 @@ export interface ClientRequest {
   status: RequestStatus;
   created_at: string;
 }
+
+/**
+ * Public homepage feed item. Deliberately narrow — never carries email,
+ * whatsapp_number, budget, description, or reference_notes, and never the
+ * uploaded file itself, only whether one exists. See job_showcase in
+ * supabase/schema.sql for why this is its own table rather than a filtered
+ * view over client_requests.
+ */
+export interface JobShowcaseItem {
+  id: string;
+  client_name: string;
+  project_type: string;
+  service: { title: string } | null;
+  status: RequestStatus;
+  has_reference_file: boolean;
+  created_at: string;
+}

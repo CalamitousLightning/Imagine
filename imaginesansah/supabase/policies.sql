@@ -112,6 +112,13 @@ create policy "client_request_files_public_insert" on client_request_files
 create policy "client_request_files_admin_read" on client_request_files
   for select using (is_admin());
 
+-- ---------------- JOB SHOWCASE (public homepage feed) ----------------
+alter table job_showcase enable row level security;
+-- Excludes 'cancelled' at the query layer (lib/queries/public.ts), not here —
+-- RLS controls *who* can read a row, the app controls *which* rows it asks for.
+create policy "job_showcase_public_read" on job_showcase for select using (true);
+create policy "job_showcase_admin_write" on job_showcase for all using (is_admin()) with check (is_admin());
+
 -- ---------------- ACTIVITY LOG (admin-only) ----------------
 create policy "activity_log_admin_read" on activity_log for select using (is_admin());
 create policy "activity_log_admin_insert" on activity_log for insert with check (is_admin());

@@ -128,7 +128,20 @@ create table if not exists site_settings (
   whatsapp_number text,           -- E.164, e.g. 233XXXXXXXXX
   whatsapp_default_greeting text default 'Hi ImagineSansah! 👋',
   whatsapp_project_message_template text default
-    'Hi ImagineSansah, I''d like to start a project. Name: {name}. Project type: {project_type}. Budget: {budget}.',
+    'Hi ImagineSansah, I''d like to start a project.
+
+Name: {name}
+Project type: {project_type}
+Service: {service}
+Budget: {budget}
+Deadline: {deadline}
+
+Project details:
+{description}
+
+References/inspiration: {reference_notes}
+
+{files_note}',
   location text,
   social_links jsonb not null default '{}'::jsonb,  -- { "instagram": "...", "behance": "...", ... }
   seo_title text,
@@ -166,6 +179,74 @@ create table if not exists client_request_files (
   media_id uuid not null references media(id) on delete cascade,
   created_at timestamptz not null default now()
 );
+
+-- ------------------------------------------------------------
+-- JOB SHOWCASE  (public homepage feed — "Recent Requests")
+--
+-- Deliberately a SEPARATE, narrow table rather than exposing
+-- client_requests to anon directly. Postgres RLS is row-level, not
+-- column-level — a public SELECT policy on client_requests would
+-- expose email, whatsapp_number, budget, description and
+-- reference_notes to anyone who queries the API directly, even if
+-- the UI only ever displays a few fields. This table only ever
+-- contains columns that are safe to show to the whole internet.
+--
+-- `has_reference_file` is a boolean, NOT a media reference — the
+-- uploaded files themselves are client-submitted and private
+-- (visible to admin only, same as always). We show "a file was
+-- attached" as a badge, never the file itself.
+-- ------------------------------------------------------------
+create table if not exists job_showcase (
+  id uuid primary key default uuid_generate_v4(),
+  request_id uuid not null unique references client_requests(id) on delete cascade,
+  client_name text not null,
+  project_type text not null,
+  service_id uuid references services(id) on delete set null,
+  status request_status not null default 'new',
+  has_reference_file boolean not null default false,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create index if not exists idx_job_showcase_created on job_showcase (created_at desc);
+
+-- Keep job_showcase in sync with client_requests automatically — this is
+-- what makes "mark the request completed in admin" auto-update the public
+-- showcase to "Done" with no extra admin-side code.
+create or replace function sync_job_showcase() returns trigger as $$
+begin
+  insert into job_showcase (request_id, client_name, project_type, service_id, status)
+  values (new.id, new.full_name, new.project_type, new.service_id, new.status)
+  on conflict (request_id) do update
+    set client_name = excluded.client_name,
+        project_type = excluded.project_type,
+        service_id = excluded.service_id,
+        status = excluded.status,
+        updated_at = now();
+  return new;
+end;
+$$ language plpgsql security definer set search_path = public;
+
+drop trigger if exists trg_client_requests_sync_showcase on client_requests;
+create trigger trg_client_requests_sync_showcase
+  after insert or update of status, full_name, project_type, service_id
+  on client_requests
+  for each row execute function sync_job_showcase();
+
+-- Flip has_reference_file the moment any file gets linked to the request —
+-- never stores which file, just that one exists.
+create or replace function sync_job_showcase_has_file() returns trigger as $$
+begin
+  update job_showcase set has_reference_file = true, updated_at = now()
+  where request_id = new.request_id;
+  return new;
+end;
+$$ language plpgsql security definer set search_path = public;
+
+drop trigger if exists trg_client_request_files_sync_showcase on client_request_files;
+create trigger trg_client_request_files_sync_showcase
+  after insert on client_request_files
+  for each row execute function sync_job_showcase_has_file();
 
 -- ------------------------------------------------------------
 -- ACTIVITY LOG  (drives "recent activity" on the admin dashboard — real, not faked)

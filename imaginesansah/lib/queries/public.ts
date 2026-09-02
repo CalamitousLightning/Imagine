@@ -120,8 +120,13 @@ export async function getSiteContent(keys: string[]): Promise<Record<string, str
  * privacy-safe mirror of client_requests — see supabase/schema.sql), never
  * the client_requests table directly. Excludes cancelled requests here at
  * the query layer; the RLS policy itself allows reading any status.
+ *
+ * Fetches up to 16 (not just the 8 that are visible at once) so the
+ * JobShowcase marquee has a pool to rotate through — it only ever shows
+ * 8 at a time (2 rows of 4), but with more than 8 in the pool it cycles
+ * to a new page of 8 every few seconds so everything surfaces eventually.
  */
-export async function getJobShowcase(limit = 8): Promise<JobShowcaseItem[]> {
+export async function getJobShowcase(limit = 16): Promise<JobShowcaseItem[]> {
   const supabase = createClient();
   const { data } = await supabase
     .from("job_showcase")

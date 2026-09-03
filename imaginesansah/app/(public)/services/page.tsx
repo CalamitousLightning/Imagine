@@ -31,8 +31,8 @@ export default async function ServicesPage() {
             return (
               <div key={service.id} className="glow-card-public p-7">
                 {iconUrl && (
-                  <div className="relative mb-5 aspect-video w-full overflow-hidden rounded-xl">
-                    <Image src={iconUrl} alt="" fill className="object-cover" sizes="320px" />
+                  <div className="relative mb-5 aspect-video w-full overflow-hidden rounded-xl bg-public-ivory">
+                    <Image src={iconUrl} alt="" fill className="object-contain" sizes="320px" />
                   </div>
                 )}
                 <h2 className="font-display text-2xl text-public-black">{service.title}</h2>

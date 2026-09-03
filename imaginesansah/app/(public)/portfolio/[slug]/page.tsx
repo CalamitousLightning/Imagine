@@ -79,8 +79,8 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
       </header>
 
       {cover && (
-        <div className="relative mx-auto mt-12 aspect-[16/9] max-w-6xl overflow-hidden px-6 lg:px-10">
-          <Image src={cover} alt={project.title} fill priority className="object-cover" sizes="100vw" />
+        <div className="relative mx-auto mt-12 aspect-[16/9] max-w-6xl overflow-hidden bg-public-ivory px-6 lg:px-10">
+          <Image src={cover} alt={project.title} fill priority className="object-contain" sizes="100vw" />
         </div>
       )}
 

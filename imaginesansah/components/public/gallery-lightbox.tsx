@@ -43,7 +43,7 @@ export function GalleryLightbox({ images, title }: { images: Media[]; title: str
                 src={url}
                 alt={img.alt_text || `${title} — image ${i + 1}`}
                 fill
-                className="object-cover transition-transform duration-500 hover:scale-105"
+                className="object-contain transition-transform duration-500 hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
             </button>

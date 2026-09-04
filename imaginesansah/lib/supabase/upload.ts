@@ -80,7 +80,6 @@ function readImageDimensions(file: File): Promise<{ width: number; height: numbe
 
 const CLIENT_REFERENCE_MAX_BYTES = 20 * 1024 * 1024;
 const CLIENT_REFERENCE_ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
-
 /**
  * Uploads a client's reference/inspiration file from the public "Start a
  * Project" form. Unlike uploadMedia(), this never reads the media row back
@@ -125,4 +124,49 @@ export async function uploadClientReferenceFile(
   }
 
   return { id, bucket: "client-files", path, file_name: file.name };
+}
+
+const AD_VIDEO_MAX_BYTES = 100 * 1024 * 1024; // matches the 'ads' bucket limit in supabase/ad_videos.sql
+const AD_VIDEO_ALLOWED_TYPES = ["video/mp4", "video/webm", "video/quicktime"];
+
+/**
+ * Uploads a video to the public 'ads' Storage bucket for the ad popup, then
+ * inserts the tracking row in `media` (same pattern as uploadMedia(), just
+ * without trying to read image dimensions out of a video file).
+ */
+export async function uploadAdVideo(supabase: SupabaseClient, file: File): Promise<Media> {
+  if (!AD_VIDEO_ALLOWED_TYPES.includes(file.type)) {
+    throw new MediaUploadError("Only MP4, WebM, or MOV videos are supported.");
+  }
+  if (file.size > AD_VIDEO_MAX_BYTES) {
+    throw new MediaUploadError("Video is larger than 100MB.");
+  }
+
+  const ext = file.name.split(".").pop() || "mp4";
+  const path = `${crypto.randomUUID()}.${ext}`;
+
+  const { error: uploadError } = await supabase.storage.from("ads").upload(path, file, {
+    cacheControl: "3600",
+    upsert: false,
+  });
+  if (uploadError) throw new MediaUploadError(uploadError.message);
+
+  const { data, error: insertError } = await supabase
+    .from("media")
+    .insert({
+      bucket: "ads",
+      path,
+      file_name: file.name,
+      file_type: file.type,
+      file_size_bytes: file.size,
+    })
+    .select()
+    .single();
+
+  if (insertError) {
+    await supabase.storage.from("ads").remove([path]);
+    throw new MediaUploadError(insertError.message);
+  }
+
+  return data as Media;
 }

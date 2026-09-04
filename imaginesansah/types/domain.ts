@@ -9,7 +9,7 @@ export type HeroComposition =
 
 export interface Media {
   id: string;
-  bucket: "portfolio" | "hero" | "profile" | "client-files" | "site-assets";
+  bucket: "portfolio" | "hero" | "profile" | "client-files" | "site-assets" | "ads";
   path: string;
   file_name: string;
   file_type: string | null;
@@ -120,5 +120,24 @@ export interface JobShowcaseItem {
   service: { title: string } | null;
   status: RequestStatus;
   has_reference_file: boolean;
+  created_at: string;
+}
+
+/**
+ * A video shown in the site's ad popup, managed from /control/ad-videos.
+ * `media` is the video file itself; `poster_media` is an optional still
+ * shown before it plays.
+ */
+export interface AdVideo {
+  id: string;
+  title: string | null;
+  cta_label: string | null;
+  cta_href: string | null;
+  media_id: string | null;
+  media?: Media | null;
+  poster_media_id: string | null;
+  poster_media?: Media | null;
+  is_enabled: boolean;
+  display_order: number;
   created_at: string;
 }

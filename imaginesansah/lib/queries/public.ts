@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import type { Project, Service, HeroSlide, SiteSettings, Category, JobShowcaseItem } from "@/types/domain";
+import type { Project, Service, HeroSlide, SiteSettings, Category, JobShowcaseItem, AdVideo } from "@/types/domain";
 
 // Re-exported for convenience so existing imports of `mediaUrl` from this module keep working;
 // the actual implementation lives in lib/media.ts because it must also be importable from
@@ -22,6 +22,16 @@ export async function getEnabledHeroSlides(): Promise<HeroSlide[]> {
     .eq("is_enabled", true)
     .order("display_order", { ascending: true });
   return (data as unknown as HeroSlide[]) ?? [];
+}
+
+export async function getEnabledAdVideos(): Promise<AdVideo[]> {
+  const supabase = createClient();
+  const { data } = await supabase
+    .from("ad_videos")
+    .select("*, media:media!ad_videos_media_id_fkey(*), poster_media:media!ad_videos_poster_media_id_fkey(*)")
+    .eq("is_enabled", true)
+    .order("display_order", { ascending: true });
+  return (data as unknown as AdVideo[]) ?? [];
 }
 
 export async function getCategories(): Promise<Category[]> {

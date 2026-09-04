@@ -26,9 +26,9 @@ function SlideComposition({ slide, reduceMotion }: { slide: HeroSlide; reduceMot
   switch (slide.composition) {
     case "full_impact_showcase":
       return (
-        <div className="relative h-full w-full bg-public-black">
+        <div className="relative h-full w-full">
           {secondary && (
-            <Image src={secondary} alt="" fill priority className="object-contain" sizes="100vw" />
+            <Image src={secondary} alt="" fill priority className="object-cover" sizes="100vw" />
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-public-black/70 via-public-black/10 to-transparent" />
           <motion.div
@@ -49,14 +49,14 @@ function SlideComposition({ slide, reduceMotion }: { slide: HeroSlide; reduceMot
     case "portrait_beside_design":
       return (
         <div className="flex h-full w-full flex-col sm:flex-row">
-          <div className="relative h-1/2 w-full bg-public-ivory sm:h-full sm:w-1/2">
+          <div className="relative h-1/2 w-full sm:h-full sm:w-1/2">
             {primary && (
               <Image
                 src={primary}
                 alt=""
                 fill
                 priority
-                className="object-contain"
+                className="object-cover"
                 sizes="(max-width: 640px) 100vw, 50vw"
               />
             )}
@@ -96,7 +96,7 @@ function SlideComposition({ slide, reduceMotion }: { slide: HeroSlide; reduceMot
                 alt=""
                 fill
                 priority
-                className="object-contain opacity-90"
+                className="object-cover opacity-90"
                 sizes="(max-width: 640px) 100vw, 50vw"
               />
             </div>
@@ -140,14 +140,14 @@ function SlideComposition({ slide, reduceMotion }: { slide: HeroSlide; reduceMot
                 <p className="mt-5 font-body text-public-black/70">{slide.subtext}</p>
               )}
             </motion.div>
-            <div className="relative col-span-12 h-56 overflow-hidden rounded-sm bg-public-ivory sm:h-72 lg:col-span-7 lg:h-full">
+            <div className="relative col-span-12 h-56 overflow-hidden rounded-sm sm:h-72 lg:col-span-7 lg:h-full">
               {secondary && (
                 <Image
                   src={secondary}
                   alt=""
                   fill
                   priority
-                  className="object-contain"
+                  className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 60vw"
                 />
               )}
@@ -161,8 +161,8 @@ function SlideComposition({ slide, reduceMotion }: { slide: HeroSlide; reduceMot
       return (
         <div className="relative h-full w-full bg-public-ivory">
           {primary && (
-            <div className="absolute inset-y-0 right-0 w-3/5 bg-public-ivory">
-              <Image src={primary} alt="" fill priority className="object-contain" sizes="60vw" />
+            <div className="absolute inset-y-0 right-0 w-3/5">
+              <Image src={primary} alt="" fill priority className="object-cover" sizes="60vw" />
             </div>
           )}
           {secondary && (
@@ -170,9 +170,9 @@ function SlideComposition({ slide, reduceMotion }: { slide: HeroSlide; reduceMot
               initial={reduceMotion ? false : { opacity: 0, scale: 0.9, rotate: -2 }}
               animate={{ opacity: 1, scale: 1, rotate: -2 }}
               transition={{ duration: 0.8, ease: easing, delay: 0.15 }}
-              className="absolute bottom-10 left-8 h-56 w-40 overflow-hidden rounded-sm bg-public-white shadow-2xl lg:h-72 lg:w-56"
+              className="absolute bottom-10 left-8 h-56 w-40 overflow-hidden rounded-sm shadow-2xl lg:h-72 lg:w-56"
             >
-              <Image src={secondary} alt="" fill className="object-contain" sizes="20vw" />
+              <Image src={secondary} alt="" fill className="object-cover" sizes="20vw" />
             </motion.div>
           )}
           {slide.headline && (

@@ -14,7 +14,7 @@ export function ProjectCard({ project }: { project: Project }) {
             src={cover}
             alt={project.title}
             fill
-            className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         )}

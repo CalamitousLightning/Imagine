@@ -37,7 +37,7 @@ export default async function AboutPage() {
       <div className="mt-6 grid gap-10 lg:grid-cols-[280px_1fr] lg:gap-16">
         {profileUrl && (
           <div className="relative aspect-[3/4] w-full max-w-xs overflow-hidden bg-public-ivory lg:max-w-none">
-            <Image src={profileUrl} alt="ImagineSansah" fill className="object-contain" sizes="280px" priority />
+            <Image src={profileUrl} alt="ImagineSansah" fill className="object-cover" sizes="280px" priority />
           </div>
         )}
 

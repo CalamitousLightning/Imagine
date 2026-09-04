@@ -12,6 +12,7 @@ import {
   FolderOpen,
   Settings,
   LogOut,
+  Clapperboard,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
@@ -21,6 +22,7 @@ const LINKS = [
   { href: "/control", label: "Overview", icon: LayoutDashboard },
   { href: "/control/portfolio", label: "Portfolio", icon: ImageIcon },
   { href: "/control/hero-showcase", label: "Hero Showcase", icon: Sparkles },
+  { href: "/control/ad-videos", label: "Ad Popup", icon: Clapperboard },
   { href: "/control/content", label: "Content Control", icon: FileText },
   { href: "/control/services", label: "Services", icon: Wrench },
   { href: "/control/requests", label: "Client Requests", icon: Inbox },

@@ -1,13 +1,15 @@
 import { SiteHeader } from "@/components/public/site-header";
 import { SiteFooter } from "@/components/public/site-footer";
 import { FloatingWhatsAppButton } from "@/components/public/floating-whatsapp-button";
-import { getSiteSettings, getSiteContent } from "@/lib/queries/public";
+import { AdPopup } from "@/components/public/ad-popup";
+import { getSiteSettings, getSiteContent, getEnabledAdVideos } from "@/lib/queries/public";
 import { ThemeScopeProvider } from "@/lib/theme-scope";
 
 export default async function PublicLayout({ children }: { children: React.ReactNode }) {
-  const [settings, content] = await Promise.all([
+  const [settings, content, adVideos] = await Promise.all([
     getSiteSettings(),
     getSiteContent(["footer.tagline"]),
+    getEnabledAdVideos(),
   ]);
 
   return (
@@ -19,6 +21,7 @@ export default async function PublicLayout({ children }: { children: React.React
         whatsappNumber={settings.whatsapp_number}
         greeting={settings.whatsapp_default_greeting}
       />
+      <AdPopup videos={adVideos} />
     </ThemeScopeProvider>
   );
 }
